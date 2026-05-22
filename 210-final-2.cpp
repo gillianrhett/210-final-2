@@ -65,11 +65,13 @@ struct LL {
             Node* second = head->next;
             delete head;
             head = second;
+            return;
         }
         if (head->next == nullptr) {
         // there is exactly one node
             delete head;
             head = nullptr;
+            return;
         }
     }
 
@@ -143,6 +145,8 @@ int main() {
         rand_d = rand() % (drinks.size());
         coffee_queue.push_back(names.at(rand_n), drinks.at(rand_d));
     }
+    cout << "Starting queue:" << endl;
+    coffee_queue.display();
     int rand_c;
     for (int i = 0; i < 10; ++i) {
         cout << "Round " << i + 1 << endl;
