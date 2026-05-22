@@ -181,7 +181,6 @@ int main() {
         labubus_queue[i].push_back(labubus.at(rand_item));
         lq_last = i;
     }
-    cout << lq_last << endl; // TESTING
     cout << "Starting coffee queue:" << endl;
     coffee_queue.display();
     cout << "Starting muffin queue:" << endl;
@@ -260,8 +259,8 @@ int main() {
             rand_n = rand() % names.size();
             rand_item = rand() % labubus.size();
             cout << "\tnew Labubu customer " << names.at(rand_n) << " wants " << labubus.at(rand_item) << " Labubu" << endl;
-            labubus_queue[labubus_queue.size() + 1].push_back(names.at(rand_n));
-            labubus_queue[labubus_queue.size()].push_back(labubus.at(rand_item));
+            labubus_queue[lq_last + 1].push_back(names.at(rand_n));
+            labubus_queue[lq_last + 1].push_back(labubus.at(rand_item));
             ++lq_last;
         }
         if (!labubus_queue.empty()) {
