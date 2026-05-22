@@ -142,35 +142,55 @@ int main() {
     deque<string> muffin_queue; // for Milestone 3
     srand(time(0));
     int rand_n, rand_d;
-    for (int i = 0; i < 3; ++i) { // queue starts with 3 customers
+    for (int i = 0; i < 3; ++i) { // each queue starts with 3 customers
+        // coffee stand initial queue
         rand_n = rand() % (names.size());
         rand_d = rand() % (drinks.size());
         coffee_queue.push_back(names.at(rand_n), drinks.at(rand_d));
+        // muffin stand initial queue
+        rand_n = rand() % (names.size());
+        muffin_queue.push_back(names.at(rand_n));
     }
-    cout << "Starting queue:" << endl;
+    cout << "Starting coffee queue:" << endl;
     coffee_queue.display();
-    int rand_c;
+    cout << "Starting muffin queue:" << endl;
+    for ( string customer : muffin_queue )
+        cout << "\t" << customer << endl;
+    int rand_c; // for 50% chance of new customer
     for (int i = 0; i < 10; ++i) {
-        cout << "Round " << i + 1 << endl;
-        rand_c = rand() % 2; // 50% chance of new customer
+        cout << "== Round " << i + 1 << " ==" << endl;
+        cout << "Coffee Stand:" << endl;
+        rand_c = rand() % 2; // 50% chance of new coffee customer
         if (rand_c == 1) {
             rand_n = rand() % (names.size());
             rand_d = rand() % (drinks.size());
             coffee_queue.push_back(names.at(rand_n), drinks.at(rand_d));
-            cout << "new customer " << names.at(rand_n) << " wants " << drinks.at(rand_d) << endl;
+            cout << "\tnew customer " << names.at(rand_n) << " wants " << drinks.at(rand_d) << endl;
         }
-        cout << "customer was served and left: ";
+        cout << "\tcoffee customer was served and left: ";
         coffee_queue.display_one_name(0);
         coffee_queue.pop_front();
-        cout << "\nCurrent queue:" << endl;
+        cout << "\n\tCoffee queue:" << endl;
         coffee_queue.display();
         cout << endl;
-
 
 // Milestone 3: Now there's another vendor selling muffins in the next booth over. 
 //    Add code to simulate that booth's queue. This time, use an std::deque. 
 //    Incorporate this new booth into the 10-round simulation. The probabilities are the same.
-
+        cout << "Muffin Stand:" << endl;
+        rand_c = rand() % 2; // 50% chance of new muffin customer
+        if (rand_c == 1) {
+            rand_n = rand() % (names.size());
+            cout << "\tnew muffin customer " << names.at(rand_n) << endl;
+            muffin_queue.push_back(names.at(rand_n));
+        }
+        if (!muffin_queue.empty()) {
+            cout << "\tmuffin customer was served and left: " << muffin_queue.at(0);
+            muffin_queue.pop_front();
+        }
+        cout << "\n\tMuffin queue:" << endl;
+        for ( string customer : muffin_queue )
+            cout << "\t" << customer << endl;
 
     } // end of 10 round simulation
 
