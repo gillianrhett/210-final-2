@@ -8,7 +8,7 @@
 #include <ctime>
 #include <deque>
 #include <vector>
-#include <unordered_map>
+#include <map>
 
 using namespace std;
 
@@ -143,7 +143,8 @@ int main() {
     LL coffee_queue; // for Milestone 2
     deque<string> muffin_queue; // for Milestone 3
     vector<string> bracelet_queue; // for Milestone 4
-    map<string,string> labubus_queue; // for Milestone 5
+    map<int,vector<string>> labubus_queue; // for Milestone 5
+    // the int is their position in line, the vector stores their name and what labubu they want
 
     // get the names of labubus for milestone 5
     array <string, 14> labubus; // there are 14 types of labubu in the file
@@ -175,7 +176,8 @@ int main() {
         // labubu stand initial queue
         rand_n = rand() % (names.size());
         rand_item = rand() % (labubus.size());
-        labubus_queue.emplace(names.at(rand_n), labubus.at(rand_item));
+        labubus_queue[i].push_back(names.at(rand_n));
+        labubus_queue[i].push_back(labubus.at(rand_item));
     }
     cout << "Starting coffee queue:" << endl;
     coffee_queue.display();
@@ -186,11 +188,13 @@ int main() {
     for ( string customer : bracelet_queue )
         cout << "\t" << customer << endl;
     cout << "Starting Labubus queue:" << endl;
-    for ( auto pair : labubus_queue )
-        cout << "\t" << pair.first << " wants " << pair.second << endl;
+    for ( auto pair : labubus_queue ) {
+        cout << "\t" << pair.second.at(0) << " wants " << pair.second.at(1) << " Labubu" << endl;
+    }
+    cout << endl;
 
     int rand_c; // for 50% chance of new customer
-    for (int i = 0; i < 10; ++i) {
+    for ( int i = 0; i < 10; ++i ) {
         cout << "== Round " << i + 1 << " ==" << endl;
         cout << "  Coffee Stand:" << endl;
         rand_c = rand() % 2; // 50% chance of new coffee customer
@@ -247,22 +251,14 @@ int main() {
 //    add this using a data structure of your choice that hasn't yet been used 
 //    in this project but has been studied in this course.
         cout << "  Labubus Stand:" << endl;
-        rand_c = rand() % 2; // 50% chance of new labubu customer
+        rand_c = rand() % 2; // 50% chance of new Labubus customer
         if (rand_c == 1) {
-            rand_n = rand() % (names.size());
-            rand_item = rand() % (labubus.size());
-            cout << "\tnew Labubu customer " << names.at(rand_n) << " wants " << labubus.at(rand_item) << endl;
-            labubus_queue.emplace(names.at(rand_n), labubus.at(rand_item));
+            rand_n = rand() % names.size();
+            rand_item = rand() % labubus.size();
+            cout << "\tnew Labubu customer " << names.at(rand_n) << " wants " << labubus.at(rand_item) << " Labubu" << endl;
+            ;
         }
-        if (!labubus_queue.empty()) {
-            cout << "\tLabubus customer bought a " << labubus_queue.at(0) << endl;
-            bracelet_queue.erase(bracelet_queue.begin());
-        }
-        cout << "\tBracelet queue:" << endl;
-        for ( string customer : bracelet_queue )
-            cout << "\t" << customer << endl;
-        cout << endl;       
-
+        cout << endl;
     } // end of 10 round simulation
 
     coffee_queue.deleteLL();
