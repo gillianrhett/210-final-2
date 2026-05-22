@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <deque>
+#include <vector>
 
 using namespace std;
 
@@ -140,6 +141,7 @@ int main() {
 //    50% probability that someone will join the queue.
     LL coffee_queue; // for Milestone 2
     deque<string> muffin_queue; // for Milestone 3
+    vector<string> bracelet_queue; // for Milestone 4
     srand(time(0));
     int rand_n, rand_d;
     for (int i = 0; i < 3; ++i) { // each queue starts with 3 customers
@@ -150,16 +152,23 @@ int main() {
         // muffin stand initial queue
         rand_n = rand() % (names.size());
         muffin_queue.push_back(names.at(rand_n));
+        // bracelet stand initial queue
+        rand_n = rand() % (names.size());
+        bracelet_queue.push_back(names.at(rand_n));
     }
     cout << "Starting coffee queue:" << endl;
     coffee_queue.display();
     cout << "Starting muffin queue:" << endl;
     for ( string customer : muffin_queue )
         cout << "\t" << customer << endl;
+    cout << "Starting bracelet queue:" << endl;
+    for ( string customer : bracelet_queue )
+            cout << "\t" << customer << endl;
+
     int rand_c; // for 50% chance of new customer
     for (int i = 0; i < 10; ++i) {
         cout << "== Round " << i + 1 << " ==" << endl;
-        cout << "Coffee Stand:" << endl;
+        cout << "  Coffee Stand:" << endl;
         rand_c = rand() % 2; // 50% chance of new coffee customer
         if (rand_c == 1) {
             rand_n = rand() % (names.size());
@@ -170,14 +179,14 @@ int main() {
         cout << "\tcoffee customer was served and left: ";
         coffee_queue.display_one_name(0);
         coffee_queue.pop_front();
-        cout << "\n\tCoffee queue:" << endl;
+        cout << "\tCoffee queue:" << endl;
         coffee_queue.display();
         cout << endl;
 
 // Milestone 3: Now there's another vendor selling muffins in the next booth over. 
 //    Add code to simulate that booth's queue. This time, use an std::deque. 
 //    Incorporate this new booth into the 10-round simulation. The probabilities are the same.
-        cout << "Muffin Stand:" << endl;
+        cout << "  Muffin Stand:" << endl;
         rand_c = rand() % 2; // 50% chance of new muffin customer
         if (rand_c == 1) {
             rand_n = rand() % (names.size());
@@ -185,19 +194,34 @@ int main() {
             muffin_queue.push_back(names.at(rand_n));
         }
         if (!muffin_queue.empty()) {
-            cout << "\tmuffin customer was served and left: " << muffin_queue.at(0);
+            cout << "\tmuffin customer was served and left: " << muffin_queue.at(0) << endl;
             muffin_queue.pop_front();
         }
-        cout << "\n\tMuffin queue:" << endl;
+        cout << "\tMuffin queue:" << endl;
         for ( string customer : muffin_queue )
             cout << "\t" << customer << endl;
+        cout << endl;
+// Milestone 4: Now there's a third vendor selling friendship bracelets in the next booth over. 
+//    Add this simulation as well using an std::vector.
+        cout << "  Bracelet Stand:" << endl;
+        rand_c = rand() % 2; // 50% chance of new muffin customer
+        if (rand_c == 1) {
+            rand_n = rand() % (names.size());
+            cout << "\tnew bracelet customer " << names.at(rand_n) << endl;
+            bracelet_queue.push_back(names.at(rand_n));
+        }
+        if (!bracelet_queue.empty()) {
+            cout << "\tbracelet customer was served and left: " << bracelet_queue.at(0) << endl;
+            bracelet_queue.erase(bracelet_queue.begin());
+        }
+        cout << "\tBracelet queue:" << endl;
+        for ( string customer : bracelet_queue )
+            cout << "\t" << customer << endl;
+        cout << endl;
 
     } // end of 10 round simulation
 
     coffee_queue.deleteLL();
-
-// Milestone 4: Now there's a third vendor selling friendship bracelets in the next booth over. 
-//    Add this simulation as well using an std::vector.
 
 // Milestone 5: Now, there's a fourth vendor selling something of your choice; 
 //    add this using a data structure of your choice that hasn't yet been used 
