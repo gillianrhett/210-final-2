@@ -119,6 +119,11 @@ int main() {
     }
     in_file.close();
 
+// Milestone 2: Run the simulation for 10 rounds. Initialize the queue with 3 customers. 
+//    For any given round, there's a 50% probability that someone will join the queue. 
+//    The customer at the head of the queue is always served in each round. 
+//    If the queue is currently empty, no customer is served, but there is still a 
+//    50% probability that someone will join the queue.
     LL coffee_queue;
     srand(time(0));
     int rand_n, rand_d;
@@ -126,17 +131,15 @@ int main() {
         rand_n = rand() % (names.size());
         rand_d = rand() % (drinks.size());
         coffee_queue.push_back(names.at(rand_n), drinks.at(rand_d));
-    }    
-    coffee_queue.display();
+    }
+    int rand_c = rand() % 1; // 50% chance
+    for (int i = 0; i < 10; ++i) {
+
+    }
+        coffee_queue.display();
     coffee_queue.display_one_name(0);
 
     coffee_queue.deleteLL();
-
-// Milestone 2: Run the simulation for 10 rounds. Initialize the queue with 3 customers. 
-//    For any given round, there's a 50% probability that someone will join the queue. 
-//    The customer at the head of the queue is always served in each round. 
-//    If the queue is currently empty, no customer is served, but there is still a 
-//    50% probability that someone will join the queue.
 
 // Milestone 3: Now there's another vendor selling muffins in the next booth over. 
 //    Add code to simulate that booth's queue. This time, use an std::deque. 
