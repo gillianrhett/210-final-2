@@ -10,17 +10,21 @@
 using namespace std;
 
 struct Node {
+// each node contains name and drink of customer and a pointer to the next node
     string name;
     string drink;
     Node* next;
 };
 
 struct LL {
+// a singly-linked list of customers
     Node* head;
-
+    
+    //constructor
     LL() { head = nullptr; }
 
     void push_back(string name, string drink) {
+    // add a new customer to the end of the line
         Node* current = head;
         Node* newNode = new Node;
         newNode->name = name;
@@ -37,8 +41,25 @@ struct LL {
         }
     }
 
+    void display_one_name(int position) {
+    // display the name and drink for one customer by position in line
+        int i = 0;
+        if (head != nullptr) {
+            Node* current = head;
+            while ( i < position && current->next != nullptr) {
+                current = current->next;
+                ++i;
+            }
+            cout << current->name;
+        }
+        else
+            cout << "The line is empty." << endl;
+    }
+
     void pop_front() {
-        Node*
+        Node* second = head->next;
+        delete head;
+        head = second;
     }
 
     void display() {
@@ -107,6 +128,7 @@ int main() {
         coffee_queue.push_back(names.at(rand_n), drinks.at(rand_d));
     }    
     coffee_queue.display();
+    coffee_queue.display_one_name(0);
 
     coffee_queue.deleteLL();
 
