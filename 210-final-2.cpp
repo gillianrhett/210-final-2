@@ -4,6 +4,8 @@
 #include <array>
 #include <fstream>
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
@@ -25,7 +27,7 @@ struct LL {
         newNode->drink = drink;
         newNode->next = nullptr;
         if (head != nullptr) {
-            while (current != nullptr) {
+            while (current->next != nullptr) {
                 current = current->next;
             }
             current->next = newNode;
@@ -33,6 +35,10 @@ struct LL {
         else {
             head = newNode;
         }
+    }
+
+    void pop_front() {
+        Node*
     }
 
     void display() {
@@ -44,7 +50,13 @@ struct LL {
     }
 
     void deleteLL() {
-        
+        Node* current = head;
+        while (current != nullptr) {
+            head = current->next;
+        delete current;
+        current = head;
+        }
+        head = nullptr;
     }
 };
 
@@ -87,9 +99,16 @@ int main() {
     in_file.close();
 
     LL coffee_queue;
-    coffee_queue.push_back("testn", "testd");
+    srand(time(0));
+    int rand_n, rand_d;
+    for (int i = 0; i < 3; ++i) { // queue starts with 3 customers
+        rand_n = rand() % (names.size());
+        rand_d = rand() % (drinks.size());
+        coffee_queue.push_back(names.at(rand_n), drinks.at(rand_d));
+    }    
     coffee_queue.display();
 
+    coffee_queue.deleteLL();
 
 // Milestone 2: Run the simulation for 10 rounds. Initialize the queue with 3 customers. 
 //    For any given round, there's a 50% probability that someone will join the queue. 
