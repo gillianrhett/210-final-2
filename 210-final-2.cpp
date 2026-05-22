@@ -1,7 +1,9 @@
 // COMSC-210 | Final 2 | Gillian Rhett
+
 #include <string>
 #include <array>
 #include <fstream>
+#include <iostream>
 
 using namespace std;
 
@@ -10,6 +12,8 @@ struct Node {
     string drink;
     Node* next;
 };
+
+void push_back(string, string, );
 
 int main() {
 
@@ -20,6 +24,34 @@ int main() {
     
     // store possible names in one array and possible drinks in another array
     // I used names.txt from Lab 28
+    array <string, 200> names; // there are 200 names in the file
+    ifstream in_file;
+    in_file.open("names.txt");
+    if (!in_file) {
+        cout << "Error: file not found" << endl;
+        return 1;
+    }
+    string temp_string;
+    int i = 0;
+    while (getline(in_file, temp_string) && i < names.size()) {
+        names.at(i) = temp_string;
+        ++i;
+    }
+    in_file.close();
+
+    array <string, 20> drinks; // there are 20 drinks in the file
+    // I used ChatGPT to generate the list of drinks
+    in_file.open("drinks.txt");
+    if (!in_file) {
+        cout << "Error: file not found" << endl;
+        return 1;
+    }
+    i = 0;
+    while (getline(in_file, temp_string) && i < drinks.size()) {
+        drinks.at(i) = temp_string;
+        ++i;
+    }
+    in_file.close();
 
 
 // Milestone 2: Run the simulation for 10 rounds. Initialize the queue with 3 customers. 

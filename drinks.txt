@@ -1,0 +1,20 @@
+Espresso
+Americano
+Latte
+Cappuccino
+Flat White
+Mocha
+Macchiato
+Cortado
+Red Eye
+Black Eye
+Irish Coffee
+Affogato
+Iced Coffee
+Cold Brew
+Nitro Cold Brew
+Frappé
+Café au Lait
+Turkish Coffee
+Vietnamese Iced Coffee
+Ristretto
