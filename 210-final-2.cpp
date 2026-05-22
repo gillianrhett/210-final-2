@@ -57,15 +57,26 @@ struct LL {
     }
 
     void pop_front() {
-        Node* second = head->next;
-        delete head;
-        head = second;
+        if (head == nullptr)
+        // the line is empty
+            return;
+        if (head->next != nullptr) {
+        // there are at least 2 nodes
+            Node* second = head->next;
+            delete head;
+            head = second;
+        }
+        if (head->next == nullptr) {
+        // there is exactly one node
+            delete head;
+            head = nullptr;
+        }
     }
 
     void display() {
         Node* current = head;
         while (current != nullptr) {
-            cout << current->name << "'s order is " << current->drink << endl;
+            cout << "\t" << current->name << "'s order is " << current->drink << endl;
             current = current->next;
         }
     }
@@ -132,12 +143,23 @@ int main() {
         rand_d = rand() % (drinks.size());
         coffee_queue.push_back(names.at(rand_n), drinks.at(rand_d));
     }
-    int rand_c = rand() % 1; // 50% chance
+    int rand_c;
     for (int i = 0; i < 10; ++i) {
-
-    }
+        cout << "Round " << i + 1 << endl;
+        rand_c = rand() % 2; // 50% chance of new customer
+        if (rand_c == 1) {
+            rand_n = rand() % (names.size());
+            rand_d = rand() % (drinks.size());
+            coffee_queue.push_back(names.at(rand_n), drinks.at(rand_d));
+            cout << "new customer " << names.at(rand_n) << " wants " << drinks.at(rand_d) << endl;
+        }
+        cout << "customer was served and left: ";
+        coffee_queue.display_one_name(0);
+        coffee_queue.pop_front();
+        cout << "\nCurrent queue:" << endl;
         coffee_queue.display();
-    coffee_queue.display_one_name(0);
+        cout << endl;
+    }
 
     coffee_queue.deleteLL();
 
