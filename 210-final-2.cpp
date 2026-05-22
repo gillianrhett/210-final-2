@@ -8,6 +8,7 @@
 #include <ctime>
 #include <deque>
 #include <vector>
+#include <map>
 
 using namespace std;
 
@@ -142,19 +143,39 @@ int main() {
     LL coffee_queue; // for Milestone 2
     deque<string> muffin_queue; // for Milestone 3
     vector<string> bracelet_queue; // for Milestone 4
+    map<string,string> labubus_queue; // for Milestone 5
+
+    // get the names of labubus for milestone 5
+    array <string, 14> labubus; // there are 14 types of labubu in the file
+    in_file.open("labubus.txt"); // I just wrote these myself
+    if (!in_file) {
+        cout << "Error: file not found" << endl;
+        return 1;
+    }
+    i = 0;
+    while (getline(in_file, temp_string) && i < labubus.size()) {
+        labubus.at(i) = temp_string;
+        ++i;
+    }
+    in_file.close();
+
     srand(time(0));
-    int rand_n, rand_d;
-    for (int i = 0; i < 3; ++i) { // each queue starts with 3 customers
+    int rand_n, rand_item;
+    for (int i = 0; i < 3; ++i) { // populate the queue at each vendor's stand with 3 customers to start the simulation
         // coffee stand initial queue
         rand_n = rand() % (names.size());
-        rand_d = rand() % (drinks.size());
-        coffee_queue.push_back(names.at(rand_n), drinks.at(rand_d));
+        rand_item = rand() % (drinks.size());
+        coffee_queue.push_back(names.at(rand_n), drinks.at(rand_item));
         // muffin stand initial queue
         rand_n = rand() % (names.size());
         muffin_queue.push_back(names.at(rand_n));
         // bracelet stand initial queue
         rand_n = rand() % (names.size());
         bracelet_queue.push_back(names.at(rand_n));
+        // labubu stand
+        rand_n = rand() % (names.size());
+        rand_item = rand() % (labubus.size());
+        labubus_queue[rand_n] = rand_item;
     }
     cout << "Starting coffee queue:" << endl;
     coffee_queue.display();
@@ -219,13 +240,14 @@ int main() {
             cout << "\t" << customer << endl;
         cout << endl;
 
-    } // end of 10 round simulation
-
-    coffee_queue.deleteLL();
-
 // Milestone 5: Now, there's a fourth vendor selling something of your choice; 
 //    add this using a data structure of your choice that hasn't yet been used 
 //    in this project but has been studied in this course.
+
+
+    } // end of 10 round simulation
+
+    coffee_queue.deleteLL();
 
 // Milestone 6: Final touches. Each round should show queue activity for all four booths.
     

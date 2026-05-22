@@ -1,0 +1,14 @@
+red
+blue
+pink
+green
+purple
+orange
+silver
+gold
+fluffy
+spooky
+nice
+mean
+puppy
+gargoyle
