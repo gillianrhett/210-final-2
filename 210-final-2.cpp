@@ -162,6 +162,7 @@ int main() {
 
     srand(time(0));
     int rand_n, rand_item;
+    int lq_first = 0, lq_last = 0; // keep track of the first and last indices of the labubus map
     for (int i = 0; i < 3; ++i) { // populate the queue at each vendor's stand with 3 customers to start the simulation
         // coffee stand initial queue
         rand_n = rand() % (names.size());
@@ -178,7 +179,9 @@ int main() {
         rand_item = rand() % (labubus.size());
         labubus_queue[i].push_back(names.at(rand_n));
         labubus_queue[i].push_back(labubus.at(rand_item));
+        lq_last = i;
     }
+    cout << lq_last << endl; // TESTING
     cout << "Starting coffee queue:" << endl;
     coffee_queue.display();
     cout << "Starting muffin queue:" << endl;
@@ -207,6 +210,7 @@ int main() {
         cout << "\tcoffee customer was served and left: ";
         coffee_queue.display_one_name(0);
         coffee_queue.pop_front();
+        cout << endl;
         cout << "\tCoffee queue:" << endl;
         coffee_queue.display();
         cout << endl;
@@ -256,7 +260,13 @@ int main() {
             rand_n = rand() % names.size();
             rand_item = rand() % labubus.size();
             cout << "\tnew Labubu customer " << names.at(rand_n) << " wants " << labubus.at(rand_item) << " Labubu" << endl;
-            ;
+            labubus_queue[labubus_queue.size() + 1].push_back(names.at(rand_n));
+            labubus_queue[labubus_queue.size()].push_back(labubus.at(rand_item));
+            ++lq_last;
+        }
+        if (!labubus_queue.empty()) {
+            cout << "\tLabubu customer " << labubus_queue[lq_first].at(0) << " was sold a " << labubus_queue[lq_first].at(1) << " Labubu and left" << endl;
+            ++lq_first;
         }
         cout << endl;
     } // end of 10 round simulation
