@@ -6,6 +6,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <deque>
 
 using namespace std;
 
@@ -137,7 +138,8 @@ int main() {
 //    The customer at the head of the queue is always served in each round. 
 //    If the queue is currently empty, no customer is served, but there is still a 
 //    50% probability that someone will join the queue.
-    LL coffee_queue;
+    LL coffee_queue; // for Milestone 2
+    deque<string> muffin_queue; // for Milestone 3
     srand(time(0));
     int rand_n, rand_d;
     for (int i = 0; i < 3; ++i) { // queue starts with 3 customers
@@ -163,13 +165,16 @@ int main() {
         cout << "\nCurrent queue:" << endl;
         coffee_queue.display();
         cout << endl;
-    }
 
-    coffee_queue.deleteLL();
 
 // Milestone 3: Now there's another vendor selling muffins in the next booth over. 
 //    Add code to simulate that booth's queue. This time, use an std::deque. 
 //    Incorporate this new booth into the 10-round simulation. The probabilities are the same.
+
+
+    } // end of 10 round simulation
+
+    coffee_queue.deleteLL();
 
 // Milestone 4: Now there's a third vendor selling friendship bracelets in the next booth over. 
 //    Add this simulation as well using an std::vector.
