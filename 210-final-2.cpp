@@ -10,10 +10,26 @@ using namespace std;
 struct Node {
     string name;
     string drink;
-    Node* next;
+    Node* next = nullptr;
+
+    // constructors
+    Node() { name = ""; drink = ""; next = nullptr; }
+    Node(string n, string d, Node* nxt) { name = n; drink = d; next = nxt; }
 };
 
-void push_back(string, string, );
+struct LL {
+    Node* head;
+
+    void push_back(string name, string drink) {
+        Node* current = head;
+        Node newNode(name, drink, nullptr);
+        if (head != nullptr)
+            while (current != nullptr) {
+                current = current->next;
+            }
+            current = &newNode;
+    }
+};
 
 int main() {
 
