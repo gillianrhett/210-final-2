@@ -10,24 +10,41 @@ using namespace std;
 struct Node {
     string name;
     string drink;
-    Node* next = nullptr;
-
-    // constructors
-    Node() { name = ""; drink = ""; next = nullptr; }
-    Node(string n, string d, Node* nxt) { name = n; drink = d; next = nxt; }
+    Node* next;
 };
 
 struct LL {
     Node* head;
 
+    LL() { head = nullptr; }
+
     void push_back(string name, string drink) {
         Node* current = head;
-        Node newNode(name, drink, nullptr);
-        if (head != nullptr)
+        Node* newNode = new Node;
+        newNode->name = name;
+        newNode->drink = drink;
+        newNode->next = nullptr;
+        if (head != nullptr) {
             while (current != nullptr) {
                 current = current->next;
             }
-            current = &newNode;
+            current->next = newNode;
+        }
+        else {
+            head = newNode;
+        }
+    }
+
+    void display() {
+        Node* current = head;
+        while (current != nullptr) {
+            cout << current->name << "'s order is " << current->drink << endl;
+            current = current->next;
+        }
+    }
+
+    void deleteLL() {
+        
     }
 };
 
@@ -68,6 +85,10 @@ int main() {
         ++i;
     }
     in_file.close();
+
+    LL coffee_queue;
+    coffee_queue.push_back("testn", "testd");
+    coffee_queue.display();
 
 
 // Milestone 2: Run the simulation for 10 rounds. Initialize the queue with 3 customers. 
